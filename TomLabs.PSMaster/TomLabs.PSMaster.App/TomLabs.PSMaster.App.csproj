@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>psman.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,6 +64,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PSExtensions.cs" />
     <EmbeddedResource Include="Forms\CreateScriptDialog.resx">
       <DependentUpon>CreateScriptDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,6 +97,7 @@
     <Content Include="Images\script-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="psman.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\_LIBRARIES\TomLabs\TomLabs\TomLabs.PowerClam\TomLabs.PowerClam.csproj">
