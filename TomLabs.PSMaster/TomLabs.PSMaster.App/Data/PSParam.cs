@@ -1,11 +1,26 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace TomLabs.PSMaster.App.Data
 {
 	public class PSParam
 	{
 		public string Name { get; set; }
-		public Type Type { get; set; }
+
+		[XmlIgnore]
+		public Type Type { get; protected set; }
+
+		private string _typeName;
+		public string TypeName
+		{
+			get { return _typeName; }
+			set
+			{
+				_typeName = value;
+				Type = ParseType(_typeName);
+			}
+		}
+
 		public object Value { get; set; }
 
 		public PSParam()
@@ -17,7 +32,8 @@ namespace TomLabs.PSMaster.App.Data
 		{
 			Name = name;
 			Value = value;
-			Type = ParseType(typeName);
+			TypeName = typeName;
+			Type = ParseType(TypeName);
 		}
 
 		private Type ParseType(string typeName)

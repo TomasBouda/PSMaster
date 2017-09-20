@@ -10,7 +10,7 @@ namespace TomLabs.PSMaster.App.Data
 
 		public string Path { get; set; }
 
-		public IEnumerable<PSParam> Parameters { get; set; }
+		public List<PSParam> Parameters { get; set; }
 
 		/// <summary>
 		/// Gets or sets whether app should prompt user for filling in parameter values
@@ -33,7 +33,7 @@ namespace TomLabs.PSMaster.App.Data
 			}
 		}
 
-		public PSScipt(string path, IList<PSParam> parameters, bool promptParams = false, string name = null)
+		public PSScipt(string path, List<PSParam> parameters, bool promptParams = false, string name = null)
 		{
 			Path = path;
 			Parameters = parameters;
@@ -41,7 +41,7 @@ namespace TomLabs.PSMaster.App.Data
 			Name = name ?? System.IO.Path.GetFileNameWithoutExtension(Path);
 		}
 
-		private IList<PSParam> ParseParameters(string script)
+		private List<PSParam> ParseParameters(string script)
 		{
 			var parameters = new List<PSParam>();
 

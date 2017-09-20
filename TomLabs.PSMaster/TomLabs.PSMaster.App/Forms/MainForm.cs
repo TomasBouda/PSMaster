@@ -7,6 +7,9 @@ using System.Windows.Forms;
 using TomLabs.PowerClam;
 using TomLabs.PSMaster.App.Data;
 using TomLabs.PSMaster.App.Extensions;
+using TomLabs.PSMaster.App.Properties;
+using TomLabs.Shadowgem.Extensions;
+using TomLabs.Shadowgem.Extensions.String;
 
 namespace TomLabs.PSMaster.App.Forms
 {
@@ -24,30 +27,24 @@ namespace TomLabs.PSMaster.App.Forms
 
 			InitializeComponent();
 
-			ImageList iList = new ImageList();
-			iList.ImageSize = new Size(64, 64);
-			iList.ColorDepth = ColorDepth.Depth32Bit;
-			iList.Images.Add("default", Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "\\Images\\script-icon.png"));
-			listScriptIcons.LargeImageList = iList;
+			SetupImageList();
 		}
 
-		private void listScriptIcons_DragEnter(object sender, DragEventArgs e)
-		{
-			if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
-		}
-
-		private void listScriptIcons_DragDrop(object sender, DragEventArgs e)
-		{
-			string[] scripts = (string[])e.Data.GetData(DataFormats.FileDrop);
-			foreach (string scriptFilePath in scripts)
-			{
-				AddScript(scriptFilePath);
-			}
-			RefreshList();
-		}
+		#region Private Methods
 
 		private void RunScript(PSScipt script)
 		{
+			if (script.PromptParams)
+			{
+				using (var createScriptDialog = new CreateScriptDialog())
+				{
+					if (createScriptDialog.RunScript(script) != DialogResult.OK)
+					{
+						return;
+					}
+				}
+			}
+
 			RunScript(script.Name, script.Path, script.Parameters.ToDictionary());
 		}
 
@@ -64,21 +61,19 @@ namespace TomLabs.PSMaster.App.Forms
 
 		private void AddScript(string scriptFilePath)
 		{
-			using (var createScriptDialog = new CreateScriptDialog())
+			if (!Scripts.Any(s => s.Path == scriptFilePath))
 			{
-				createScriptDialog.CreateScript(scriptFilePath);
-
-				if (createScriptDialog.ShowDialog() == DialogResult.OK)
+				using (var createScriptDialog = new CreateScriptDialog())
 				{
-					if (!Scripts.Any(s => s.Path == createScriptDialog.Script.Path))
+					if (createScriptDialog.CreateScript(new PSScipt(scriptFilePath)) == DialogResult.OK)
 					{
 						Scripts.Add(createScriptDialog.Script);
 					}
-					else
-					{
-						MessageBox.Show("Script already exists!");
-					}
 				}
+			}
+			else
+			{
+				MessageBox.Show("Script already exists!");
 			}
 		}
 
@@ -86,10 +81,7 @@ namespace TomLabs.PSMaster.App.Forms
 		{
 			using (var createScriptDialog = new CreateScriptDialog())
 			{
-				createScriptDialog.Script = script;
-				createScriptDialog.EditMode = true;
-
-				var result = createScriptDialog.ShowDialog();
+				var result = createScriptDialog.EditScript(script);
 				if (result == DialogResult.OK)
 				{
 
@@ -112,11 +104,57 @@ namespace TomLabs.PSMaster.App.Forms
 				listViewItem.Tag = script;
 				listViewItem.ImageKey = "default";
 
-
 				listScriptIcons.Items.Add(listViewItem);
 			}
 		}
 
+		private void SetupImageList()
+		{
+			ImageList iList = new ImageList();
+			iList.ImageSize = new Size(64, 64);
+			iList.ColorDepth = ColorDepth.Depth32Bit;
+			iList.Images.Add("default", Resources.script_icon);
+			listScriptIcons.LargeImageList = iList;
+		}
+
+		private void SaveScripts()
+		{
+			if (Scripts?.Count > 0)
+			{
+				Settings.Default.ScriptsMetadata = Scripts.XmlSerialize();
+				Settings.Default.Save();
+			}
+		}
+
+		private void LoadScripts()
+		{
+			if (Settings.Default.ScriptsMetadata.IsFilled())
+			{
+				Scripts = Settings.Default.ScriptsMetadata.XmlDeserialize<List<PSScipt>>();
+				RefreshList();
+			}
+		}
+
+		#endregion Private Methods
+
+
+
+		#region Event Handlers
+
+		private void listScriptIcons_DragEnter(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+		}
+
+		private void listScriptIcons_DragDrop(object sender, DragEventArgs e)
+		{
+			string[] scripts = (string[])e.Data.GetData(DataFormats.FileDrop);
+			foreach (string scriptFilePath in scripts)
+			{
+				AddScript(scriptFilePath);
+			}
+			RefreshList();
+		}
 
 		private void listScriptIcons_DrawItem(object sender, DrawListViewItemEventArgs e)
 		{
@@ -132,13 +170,6 @@ namespace TomLabs.PSMaster.App.Forms
 			}
 		}
 
-		private void txtLog_TextChanged(object sender, EventArgs e)
-		{
-			// Autoscroll
-			txtLog.SelectionStart = txtLog.Text.Length;
-			txtLog.ScrollToCaret();
-		}
-
 		private void listScriptIcons_MouseClick(object sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Right)
@@ -147,6 +178,12 @@ namespace TomLabs.PSMaster.App.Forms
 			}
 		}
 
+		private void txtLog_TextChanged(object sender, EventArgs e)
+		{
+			// Autoscroll
+			txtLog.SelectionStart = txtLog.Text.Length;
+			txtLog.ScrollToCaret();
+		}
 		private void editToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (listScriptIcons.SelectedItems.Count > 0)
@@ -155,5 +192,18 @@ namespace TomLabs.PSMaster.App.Forms
 				EditScript(selectedItem);
 			}
 		}
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			LoadScripts();
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			SaveScripts();
+		}
+
+		#endregion Event Handlers
+
 	}
 }

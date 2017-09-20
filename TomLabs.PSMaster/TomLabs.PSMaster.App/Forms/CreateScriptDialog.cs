@@ -1,51 +1,65 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using TomLabs.PSMaster.App.Data;
 
 namespace TomLabs.PSMaster.App.Forms
 {
+	public enum EDialogMode
+	{
+		Create,
+		Edit,
+		Run
+	}
+
 	public partial class CreateScriptDialog : Form
 	{
-		public bool EditMode { get; set; }
+		public EDialogMode DialogMode { get; private set; }
 
 		public string ScriptPath
 		{
 			get { return txtScriptPath.Text; }
-			set
+			private set
 			{
 				txtScriptPath.Text = value;
+				txtScriptPath.SelectionStart = txtScriptPath.Text.Length - 1;
+				txtScriptPath.SelectionLength = 0;
 			}
 		}
 
-		public PSScipt Script { get; set; }
+		public PSScipt Script { get; private set; }
 
 		public CreateScriptDialog()
 		{
 			InitializeComponent();
 		}
 
-		public void CreateScript(string scriptPath)
+		#region Private Methods
+
+		public DialogResult CreateScript(PSScipt script)
 		{
-			ScriptPath = scriptPath;
-			Script = new PSScipt(ScriptPath);
+			return Init(EDialogMode.Create, script);
+		}
+
+		public DialogResult EditScript(PSScipt script)
+		{
+			return Init(EDialogMode.Edit, script);
+		}
+
+		public DialogResult RunScript(PSScipt script)
+		{
+			return Init(EDialogMode.Run, script);
+		}
+
+		private DialogResult Init(EDialogMode mode, PSScipt script)
+		{
+			DialogMode = mode;
+			Script = script;
+			ScriptPath = Script.Path;
+			chckPrompt.Checked = Script.PromptParams;
 			ShowParams();
-		}
-
-		private void CreateScriptDialog_Load(object senderm, System.EventArgs e)
-		{
-			if (EditMode)
-			{
-				ShowParams();
-				btnDelete.Visible = true;
-			}
-		}
-
-		private void btnSave_Click(object sender, System.EventArgs e)
-		{
-			DeserializeParams();
-			DialogResult = DialogResult.OK;
-			Close();
+			return ShowDialog();
 		}
 
 		private void ShowParams()
@@ -58,12 +72,12 @@ namespace TomLabs.PSMaster.App.Forms
 				int left = 0;
 				var lblParamName = new Label();
 				lblParamName.Width = 100;
-				lblParamName.Text = param.Name;
-				lblParamName.Top = top;
+				lblParamName.Text = $"[{param.TypeName}]{param.Name}";
+				lblParamName.Top = top + 5;
 				lblParamName.Left = left;
 				pnlParams.Controls.Add(lblParamName);
 
-				if (param.Type.Name != "Boolean")
+				if (param.TypeName != "Boolean")
 				{
 					var txtParamValue = new TextBox();
 					txtParamValue.Width = 100;
@@ -104,6 +118,21 @@ namespace TomLabs.PSMaster.App.Forms
 			}
 		}
 
+		private void Save()
+		{
+			Script.PromptParams = chckPrompt.Checked;
+			DeserializeParams();
+			DialogResult = DialogResult.OK;
+			Close();
+		}
+
+		private void OpenScript()
+		{
+			Process.Start(ScriptPath);
+		}
+
+		#endregion Private Methods
+
 		private object HandleParamValue(object textValue, Type type)
 		{
 			if (type.Name == "String")
@@ -120,10 +149,51 @@ namespace TomLabs.PSMaster.App.Forms
 			}
 		}
 
+		private void CreateScriptDialog_Load(object senderm, System.EventArgs e)
+		{
+			if (DialogMode == EDialogMode.Edit)
+			{
+				btnDelete.Visible = true;
+
+				this.Text = "Edit Script";
+			}
+			else if (DialogMode == EDialogMode.Run)
+			{
+				btnRun.Visible = true;
+				chckPrompt.Visible = false;
+				btnSave.Visible = false;
+
+				this.Text = "Run Script";
+			}
+			else
+			{
+				this.Text = "Create Script";
+			}
+		}
+
+		private void btnSave_Click(object sender, System.EventArgs e)
+		{
+			Save();
+		}
 		private void btnDelete_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Abort;
 			Close();
+		}
+
+		private void txtScriptPath_MouseHover(object sender, EventArgs e)
+		{
+			toolTip.Show(ScriptPath, txtScriptPath);
+		}
+
+		private void btnRun_Click(object sender, EventArgs e)
+		{
+			Save();
+		}
+
+		private void btnOpenScript_Click(object sender, EventArgs e)
+		{
+			OpenScript();
 		}
 	}
 }

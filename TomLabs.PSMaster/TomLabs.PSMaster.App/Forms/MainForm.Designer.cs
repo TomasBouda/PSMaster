@@ -126,12 +126,12 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
 			this.cmsListScripts.Name = "cmsListScripts";
-			this.cmsListScripts.Size = new System.Drawing.Size(153, 70);
+			this.cmsListScripts.Size = new System.Drawing.Size(108, 48);
 			// 
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
 			this.editToolStripMenuItem.Text = "Edit";
 			this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
 			// 
@@ -151,7 +151,10 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "MainForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "PSMaster";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.splitContainer1.Panel1.ResumeLayout(false);
