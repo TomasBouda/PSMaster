@@ -40,6 +40,7 @@
 			this.chckPrompt = new System.Windows.Forms.CheckBox();
 			this.btnRun = new System.Windows.Forms.Button();
 			this.btnOpenScript = new System.Windows.Forms.Button();
+			this.btnReloadParams = new System.Windows.Forms.Button();
 			this.groupParams.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -57,12 +58,13 @@
 			this.txtScriptPath.Location = new System.Drawing.Point(12, 25);
 			this.txtScriptPath.Name = "txtScriptPath";
 			this.txtScriptPath.ReadOnly = true;
-			this.txtScriptPath.Size = new System.Drawing.Size(294, 20);
+			this.txtScriptPath.Size = new System.Drawing.Size(268, 20);
 			this.txtScriptPath.TabIndex = 1;
 			this.txtScriptPath.MouseHover += new System.EventHandler(this.txtScriptPath_MouseHover);
 			// 
 			// pnlParams
 			// 
+			this.pnlParams.AutoScroll = true;
 			this.pnlParams.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pnlParams.Location = new System.Drawing.Point(3, 16);
 			this.pnlParams.Name = "pnlParams";
@@ -130,12 +132,25 @@
 			// 
 			this.btnOpenScript.BackgroundImage = global::TomLabs.PSMaster.App.Properties.Resources.open_file;
 			this.btnOpenScript.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnOpenScript.Location = new System.Drawing.Point(312, 23);
+			this.btnOpenScript.Location = new System.Drawing.Point(286, 23);
 			this.btnOpenScript.Name = "btnOpenScript";
 			this.btnOpenScript.Size = new System.Drawing.Size(24, 24);
 			this.btnOpenScript.TabIndex = 8;
+			this.toolTip.SetToolTip(this.btnOpenScript, "Open script");
 			this.btnOpenScript.UseVisualStyleBackColor = true;
 			this.btnOpenScript.Click += new System.EventHandler(this.btnOpenScript_Click);
+			// 
+			// btnReloadParams
+			// 
+			this.btnReloadParams.BackgroundImage = global::TomLabs.PSMaster.App.Properties.Resources.refresh;
+			this.btnReloadParams.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnReloadParams.Location = new System.Drawing.Point(312, 23);
+			this.btnReloadParams.Name = "btnReloadParams";
+			this.btnReloadParams.Size = new System.Drawing.Size(24, 24);
+			this.btnReloadParams.TabIndex = 9;
+			this.toolTip.SetToolTip(this.btnReloadParams, "Refresh params");
+			this.btnReloadParams.UseVisualStyleBackColor = true;
+			this.btnReloadParams.Click += new System.EventHandler(this.btnReloadParams_Click);
 			// 
 			// CreateScriptDialog
 			// 
@@ -143,6 +158,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
 			this.ClientSize = new System.Drawing.Size(347, 274);
+			this.Controls.Add(this.btnReloadParams);
 			this.Controls.Add(this.btnOpenScript);
 			this.Controls.Add(this.btnDelete);
 			this.Controls.Add(this.btnSave);
@@ -176,5 +192,6 @@
 		private System.Windows.Forms.CheckBox chckPrompt;
 		private System.Windows.Forms.Button btnRun;
 		private System.Windows.Forms.Button btnOpenScript;
+		private System.Windows.Forms.Button btnReloadParams;
 	}
 }

@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TomLabs.PowerClam;
-using TomLabs.PSMaster.App.Data;
-using TomLabs.PSMaster.App.Extensions;
+using TomLabs.PowerClam.Data;
+using TomLabs.PowerClam.Extensions;
 using TomLabs.PSMaster.App.Properties;
 using TomLabs.Shadowgem.Extensions;
 using TomLabs.Shadowgem.Extensions.String;
@@ -15,7 +15,16 @@ namespace TomLabs.PSMaster.App.Forms
 {
 	public partial class MainForm : Form
 	{
-		private List<PSScipt> Scripts { get; set; } = new List<PSScipt>();
+		private List<PSScipt> _scripts = new List<PSScipt>();
+		private List<PSScipt> Scripts
+		{
+			get { return _scripts; }
+			set
+			{
+				_scripts = value;
+				RefreshList();
+			}
+		}
 
 		public MainForm(string[] args)
 		{
@@ -88,9 +97,14 @@ namespace TomLabs.PSMaster.App.Forms
 				}
 				else if (result == DialogResult.Abort)
 				{
-					Scripts.Remove(script);
+					DeleteScript(script);
 				}
 			}
+		}
+
+		private void DeleteScript(PSScipt script)
+		{
+			Scripts.Remove(script);
 			RefreshList();
 		}
 
@@ -131,7 +145,6 @@ namespace TomLabs.PSMaster.App.Forms
 			if (Settings.Default.ScriptsMetadata.IsFilled())
 			{
 				Scripts = Settings.Default.ScriptsMetadata.XmlDeserialize<List<PSScipt>>();
-				RefreshList();
 			}
 		}
 
@@ -184,12 +197,22 @@ namespace TomLabs.PSMaster.App.Forms
 			txtLog.SelectionStart = txtLog.Text.Length;
 			txtLog.ScrollToCaret();
 		}
+
 		private void editToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (listScriptIcons.SelectedItems.Count > 0)
 			{
 				var selectedItem = listScriptIcons.SelectedItems[0].Tag as PSScipt;
 				EditScript(selectedItem);
+			}
+		}
+
+		private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (listScriptIcons.SelectedItems.Count > 0)
+			{
+				var selectedItem = listScriptIcons.SelectedItems[0].Tag as PSScipt;
+				DeleteScript(selectedItem);
 			}
 		}
 

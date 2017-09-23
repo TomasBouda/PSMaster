@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TomLabs.PSMaster.App.Data;
+using TomLabs.PowerClam.Data;
 
 namespace TomLabs.PSMaster.App.Forms
 {
@@ -64,34 +65,46 @@ namespace TomLabs.PSMaster.App.Forms
 
 		private void ShowParams()
 		{
-			var parameters = Script.Parameters.ToList();
+			pnlParams.Controls.Clear();
+			var parameters = Script.Parameters?.ToList();
 			for (int i = 0; i < parameters.Count; i++)
 			{
 				var param = parameters[i];
 				int top = i * 25;
 				int left = 0;
+				int editLeft = 130;
+
+				var lblParamType = new Label();
+				lblParamType.AutoSize = true;
+				lblParamType.Text = $"[{param.TypeName}]";
+				lblParamType.Top = top + 2;
+				lblParamType.Left = left;
+				lblParamType.ForeColor = Color.Blue;
+				pnlParams.Controls.Add(lblParamType);
+
 				var lblParamName = new Label();
-				lblParamName.Width = 100;
-				lblParamName.Text = $"[{param.TypeName}]{param.Name}";
-				lblParamName.Top = top + 5;
-				lblParamName.Left = left;
+				lblParamName.AutoSize = true;
+				lblParamName.Font = new System.Drawing.Font(lblParamName.Font.FontFamily, lblParamName.Font.Size, System.Drawing.FontStyle.Bold);
+				lblParamName.Text = param.Name;
+				lblParamName.Top = top + 2;
+				lblParamName.Left = lblParamType.Width;
 				pnlParams.Controls.Add(lblParamName);
 
 				if (param.TypeName != "Boolean")
 				{
 					var txtParamValue = new TextBox();
-					txtParamValue.Width = 100;
+					txtParamValue.Width = 150;
 					txtParamValue.Text = param.Value.ToString().Replace("\"", "");
 					txtParamValue.Top = top;
-					txtParamValue.Left = left + lblParamName.Width;
+					txtParamValue.Left = editLeft;
 					txtParamValue.Tag = param;
 					pnlParams.Controls.Add(txtParamValue);
 				}
 				else
 				{
 					var chckParamValue = new CheckBox();
-					chckParamValue.Top = top;
-					chckParamValue.Left = left + lblParamName.Width;
+					chckParamValue.Top = top - 2;
+					chckParamValue.Left = editLeft;
 					chckParamValue.Tag = param;
 					chckParamValue.Checked = bool.Parse(param.Value.ToString().Replace("$", ""));
 					pnlParams.Controls.Add(chckParamValue);
@@ -107,13 +120,13 @@ namespace TomLabs.PSMaster.App.Forms
 				{
 					var txtParamValue = control as TextBox;
 					var param = txtParamValue.Tag as PSParam;
-					Script.Parameters.Single(p => p == param).Value = HandleParamValue(txtParamValue.Text, param.Type);
+					Script.Parameters.Single(p => p == param).Value = param.HandleParamValue(txtParamValue.Text);
 				}
 				else if (control is CheckBox)
 				{
 					var chckParamValue = control as CheckBox;
 					var param = chckParamValue.Tag as PSParam;
-					Script.Parameters.Single(p => p == param).Value = HandleParamValue(chckParamValue.Checked, param.Type);
+					Script.Parameters.Single(p => p == param).Value = param.HandleParamValue(chckParamValue.Checked);
 				}
 			}
 		}
@@ -131,23 +144,13 @@ namespace TomLabs.PSMaster.App.Forms
 			Process.Start(ScriptPath);
 		}
 
-		#endregion Private Methods
-
-		private object HandleParamValue(object textValue, Type type)
+		private void ReloadParams()
 		{
-			if (type.Name == "String")
-			{
-				return $"\"{textValue}\"";
-			}
-			else if (type.Name == "Boolean")
-			{
-				return $"${textValue}";
-			}
-			else
-			{
-				return textValue;
-			}
+			Script.LoadParameters();
+			ShowParams();
 		}
+
+		#endregion Private Methods
 
 		private void CreateScriptDialog_Load(object senderm, System.EventArgs e)
 		{
@@ -194,6 +197,11 @@ namespace TomLabs.PSMaster.App.Forms
 		private void btnOpenScript_Click(object sender, EventArgs e)
 		{
 			OpenScript();
+		}
+
+		private void btnReloadParams_Click(object sender, EventArgs e)
+		{
+			ReloadParams();
 		}
 	}
 }

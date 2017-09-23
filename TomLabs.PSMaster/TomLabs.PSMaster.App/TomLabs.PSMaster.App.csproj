@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>psman.ico</ApplicationIcon>
+    <ApplicationIcon>Images\psman.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
@@ -54,8 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\PSParam.cs" />
-    <Compile Include="Data\PSScipt.cs" />
     <Compile Include="Forms\CreateScriptDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,7 +68,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\PSExtensions.cs" />
     <EmbeddedResource Include="Forms\CreateScriptDialog.resx">
       <DependentUpon>CreateScriptDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -104,8 +101,9 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
     <None Include="Images\open-file.png" />
+    <None Include="Images\refresh.png" />
     <Content Include="Images\script-icon.png" />
-    <Content Include="psman.ico" />
+    <Content Include="Images\psman.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\_LIBRARIES\TomLabs\TomLabs\TomLabs.PowerClam\TomLabs.PowerClam.csproj">

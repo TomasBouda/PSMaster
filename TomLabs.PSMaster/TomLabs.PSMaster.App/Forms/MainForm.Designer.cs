@@ -126,20 +126,21 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
 			this.cmsListScripts.Name = "cmsListScripts";
-			this.cmsListScripts.Size = new System.Drawing.Size(108, 48);
+			this.cmsListScripts.Size = new System.Drawing.Size(153, 70);
 			// 
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.editToolStripMenuItem.Text = "Edit";
 			this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.deleteToolStripMenuItem.Text = "Delete";
+			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
