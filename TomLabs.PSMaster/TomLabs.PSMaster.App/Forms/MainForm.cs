@@ -136,21 +136,29 @@ namespace TomLabs.PSMaster.App.Forms
 			if (Scripts?.Count > 0)
 			{
 				Settings.Default.ScriptsMetadata = Scripts.XmlSerialize();
-				Settings.Default.Save();
+				Settings.Default.SortDirection = (int)listScriptIcons.Sorting;
 			}
+
+			Settings.Default.MainFormSize = new Size(Width, Height);
+			Settings.Default.Save();
 		}
 
 		private void LoadScripts()
 		{
+			if (Settings.Default.MainFormSize.Width > 0 && Settings.Default.MainFormSize.Height > 0)
+			{
+				Width = Settings.Default.MainFormSize.Width;
+				Height = Settings.Default.MainFormSize.Height;
+			}
+
 			if (Settings.Default.ScriptsMetadata.IsFilled())
 			{
 				Scripts = Settings.Default.ScriptsMetadata.XmlDeserialize<List<PSScipt>>();
+				listScriptIcons.Sorting = (SortOrder)Settings.Default.SortDirection;
 			}
 		}
 
 		#endregion Private Methods
-
-
 
 		#region Event Handlers
 
@@ -198,6 +206,15 @@ namespace TomLabs.PSMaster.App.Forms
 			txtLog.ScrollToCaret();
 		}
 
+		private void runToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (listScriptIcons.SelectedItems.Count > 0)
+			{
+				var selectedItem = listScriptIcons.SelectedItems[0].Tag as PSScipt;
+				RunScript(selectedItem);
+			}
+		}
+
 		private void editToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (listScriptIcons.SelectedItems.Count > 0)
@@ -216,6 +233,16 @@ namespace TomLabs.PSMaster.App.Forms
 			}
 		}
 
+		private void ascToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			listScriptIcons.Sorting = SortOrder.Ascending;
+		}
+
+		private void descToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			listScriptIcons.Sorting = SortOrder.Descending;
+		}
+
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			LoadScripts();
@@ -227,6 +254,5 @@ namespace TomLabs.PSMaster.App.Forms
 		}
 
 		#endregion Event Handlers
-
 	}
 }

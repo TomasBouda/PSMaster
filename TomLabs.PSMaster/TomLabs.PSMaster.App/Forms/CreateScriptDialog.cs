@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TomLabs.PowerClam.Data;
@@ -144,6 +145,11 @@ namespace TomLabs.PSMaster.App.Forms
 			Process.Start(ScriptPath);
 		}
 
+		private void OpenScriptDirectory()
+		{
+			Process.Start(Path.GetDirectoryName(ScriptPath));
+		}
+
 		private void ReloadParams()
 		{
 			Script.LoadParameters();
@@ -202,6 +208,11 @@ namespace TomLabs.PSMaster.App.Forms
 		private void btnReloadParams_Click(object sender, EventArgs e)
 		{
 			ReloadParams();
+		}
+
+		private void txtScriptPath_DoubleClick(object sender, EventArgs e)
+		{
+			OpenScriptDirectory();
 		}
 	}
 }

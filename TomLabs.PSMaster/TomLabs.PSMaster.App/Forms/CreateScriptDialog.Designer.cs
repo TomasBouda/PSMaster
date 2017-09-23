@@ -60,6 +60,7 @@
 			this.txtScriptPath.ReadOnly = true;
 			this.txtScriptPath.Size = new System.Drawing.Size(268, 20);
 			this.txtScriptPath.TabIndex = 1;
+			this.txtScriptPath.DoubleClick += new System.EventHandler(this.txtScriptPath_DoubleClick);
 			this.txtScriptPath.MouseHover += new System.EventHandler(this.txtScriptPath_MouseHover);
 			// 
 			// pnlParams

@@ -39,6 +39,10 @@
 			this.cmsListScripts = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ascToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.descToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -54,7 +58,6 @@
 			this.listScriptIcons.Location = new System.Drawing.Point(0, 0);
 			this.listScriptIcons.Name = "listScriptIcons";
 			this.listScriptIcons.Size = new System.Drawing.Size(368, 300);
-			this.listScriptIcons.Sorting = System.Windows.Forms.SortOrder.Ascending;
 			this.listScriptIcons.TabIndex = 0;
 			this.listScriptIcons.UseCompatibleStateImageBehavior = false;
 			this.listScriptIcons.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listScriptIcons_DrawItem);
@@ -123,24 +126,56 @@
 			// cmsListScripts
 			// 
 			this.cmsListScripts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.runToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.sortToolStripMenuItem});
 			this.cmsListScripts.Name = "cmsListScripts";
-			this.cmsListScripts.Size = new System.Drawing.Size(153, 70);
+			this.cmsListScripts.Size = new System.Drawing.Size(153, 114);
 			// 
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
 			this.editToolStripMenuItem.Text = "Edit";
 			this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
 			this.deleteToolStripMenuItem.Text = "Delete";
 			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+			// 
+			// sortToolStripMenuItem
+			// 
+			this.sortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ascToolStripMenuItem,
+            this.descToolStripMenuItem});
+			this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+			this.sortToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+			this.sortToolStripMenuItem.Text = "Sort";
+			// 
+			// ascToolStripMenuItem
+			// 
+			this.ascToolStripMenuItem.Name = "ascToolStripMenuItem";
+			this.ascToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ascToolStripMenuItem.Text = "asc";
+			this.ascToolStripMenuItem.Click += new System.EventHandler(this.ascToolStripMenuItem_Click);
+			// 
+			// descToolStripMenuItem
+			// 
+			this.descToolStripMenuItem.Name = "descToolStripMenuItem";
+			this.descToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.descToolStripMenuItem.Text = "desc";
+			this.descToolStripMenuItem.Click += new System.EventHandler(this.descToolStripMenuItem_Click);
+			// 
+			// runToolStripMenuItem
+			// 
+			this.runToolStripMenuItem.Name = "runToolStripMenuItem";
+			this.runToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.runToolStripMenuItem.Text = "Run";
+			this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -179,6 +214,10 @@
 		private System.Windows.Forms.ContextMenuStrip cmsListScripts;
 		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ascToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem descToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
 	}
 }
 

@@ -34,5 +34,29 @@ namespace TomLabs.PSMaster.App.Properties {
                 this["ScriptsMetadata"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SortDirection {
+            get {
+                return ((int)(this["SortDirection"]));
+            }
+            set {
+                this["SortDirection"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size MainFormSize {
+            get {
+                return ((global::System.Drawing.Size)(this["MainFormSize"]));
+            }
+            set {
+                this["MainFormSize"] = value;
+            }
+        }
     }
 }
