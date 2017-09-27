@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TomLabs.PowerClam.Data;
+using TomLabs.Shadowgem.Extensions.String;
 
 namespace TomLabs.PSMaster.App.Forms
 {
@@ -73,7 +74,7 @@ namespace TomLabs.PSMaster.App.Forms
 				var param = parameters[i];
 				int top = i * 25;
 				int left = 0;
-				int editLeft = 130;
+				int editLeft = 140;
 
 				var lblParamType = new Label();
 				lblParamType.AutoSize = true;
@@ -94,8 +95,8 @@ namespace TomLabs.PSMaster.App.Forms
 				if (param.TypeName != "Boolean")
 				{
 					var txtParamValue = new TextBox();
-					txtParamValue.Width = 150;
-					txtParamValue.Text = param.Value.ToString().Replace("\"", "");
+					txtParamValue.Width = 160;
+					txtParamValue.Text = param.Value.ToString().ReplaceAll(new string[] { "'", "\"" }, "");
 					txtParamValue.Top = top;
 					txtParamValue.Left = editLeft;
 					txtParamValue.Tag = param;

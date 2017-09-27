@@ -59,13 +59,13 @@ namespace TomLabs.PSMaster.App.Forms
 
 		private void RunScript(string scriptName, string scriptFilePath, IDictionary<string, object> parameters = null)
 		{
-			var result = ScriptRunner.RunScriptFile(scriptFilePath, parameters);
-			LogString(scriptName, result);
+			var output = ScriptRunner.RunScriptFile(scriptFilePath, parameters);
+			LogScriptResult(scriptName, output, Path.GetDirectoryName(scriptFilePath));
 		}
 
-		private void LogString(string scriptName, string output)
+		private void LogScriptResult(string scriptName, string output, string workingDirectory)
 		{
-			txtLog.AppendText($"{DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss")}|{scriptName}> {(output != "" ? output : Environment.NewLine)}");
+			txtLog.AppendText($"PS {workingDirectory}> .\\{scriptName}.ps1 {(output != "" ? output : Environment.NewLine)}");
 		}
 
 		private void AddScript(string scriptFilePath)
@@ -210,8 +210,10 @@ namespace TomLabs.PSMaster.App.Forms
 		{
 			if (listScriptIcons.SelectedItems.Count > 0)
 			{
-				var selectedItem = listScriptIcons.SelectedItems[0].Tag as PSScipt;
-				RunScript(selectedItem);
+				foreach (PSScipt script in listScriptIcons.SelectedItems.Cast<ListViewItem>().Select(c => c.Tag))
+				{
+					RunScript(script);
+				}
 			}
 		}
 

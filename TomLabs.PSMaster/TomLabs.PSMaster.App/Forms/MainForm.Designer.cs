@@ -37,12 +37,12 @@
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.txtLog = new System.Windows.Forms.RichTextBox();
 			this.cmsListScripts = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ascToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.descToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -57,7 +57,7 @@
 			this.listScriptIcons.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listScriptIcons.Location = new System.Drawing.Point(0, 0);
 			this.listScriptIcons.Name = "listScriptIcons";
-			this.listScriptIcons.Size = new System.Drawing.Size(368, 300);
+			this.listScriptIcons.Size = new System.Drawing.Size(467, 228);
 			this.listScriptIcons.TabIndex = 0;
 			this.listScriptIcons.UseCompatibleStateImageBehavior = false;
 			this.listScriptIcons.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listScriptIcons_DrawItem);
@@ -106,19 +106,21 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.txtLog);
-			this.splitContainer1.Size = new System.Drawing.Size(368, 364);
-			this.splitContainer1.SplitterDistance = 300;
+			this.splitContainer1.Size = new System.Drawing.Size(467, 338);
+			this.splitContainer1.SplitterDistance = 228;
 			this.splitContainer1.TabIndex = 2;
 			// 
 			// txtLog
 			// 
 			this.txtLog.BackColor = System.Drawing.Color.Navy;
+			this.txtLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.txtLog.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.txtLog.ForeColor = System.Drawing.SystemColors.InactiveBorder;
 			this.txtLog.Location = new System.Drawing.Point(0, 0);
 			this.txtLog.Name = "txtLog";
-			this.txtLog.Size = new System.Drawing.Size(368, 60);
+			this.txtLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+			this.txtLog.Size = new System.Drawing.Size(467, 106);
 			this.txtLog.TabIndex = 0;
 			this.txtLog.Text = "";
 			this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
@@ -131,7 +133,14 @@
             this.deleteToolStripMenuItem,
             this.sortToolStripMenuItem});
 			this.cmsListScripts.Name = "cmsListScripts";
-			this.cmsListScripts.Size = new System.Drawing.Size(153, 114);
+			this.cmsListScripts.Size = new System.Drawing.Size(108, 92);
+			// 
+			// runToolStripMenuItem
+			// 
+			this.runToolStripMenuItem.Name = "runToolStripMenuItem";
+			this.runToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+			this.runToolStripMenuItem.Text = "Run";
+			this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
 			// 
 			// editToolStripMenuItem
 			// 
@@ -159,29 +168,22 @@
 			// ascToolStripMenuItem
 			// 
 			this.ascToolStripMenuItem.Name = "ascToolStripMenuItem";
-			this.ascToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ascToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
 			this.ascToolStripMenuItem.Text = "asc";
 			this.ascToolStripMenuItem.Click += new System.EventHandler(this.ascToolStripMenuItem_Click);
 			// 
 			// descToolStripMenuItem
 			// 
 			this.descToolStripMenuItem.Name = "descToolStripMenuItem";
-			this.descToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.descToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
 			this.descToolStripMenuItem.Text = "desc";
 			this.descToolStripMenuItem.Click += new System.EventHandler(this.descToolStripMenuItem_Click);
-			// 
-			// runToolStripMenuItem
-			// 
-			this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-			this.runToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.runToolStripMenuItem.Text = "Run";
-			this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(368, 364);
+			this.ClientSize = new System.Drawing.Size(467, 338);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.menuStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
