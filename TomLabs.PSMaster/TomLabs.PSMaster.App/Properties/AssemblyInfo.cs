@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TomLabs.PSMaster.App")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("PSMaster")]
+[assembly: AssemblyDescription("Small application that allows you easily run powershell scripts.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TomLabs.PSMaster.App")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCompany("TomLabs")]
+[assembly: AssemblyProduct("TomLabs.PSMaster")]
+[assembly: AssemblyCopyright("Copyright ©  2017 TomLabs")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
