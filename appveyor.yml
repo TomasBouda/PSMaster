@@ -14,11 +14,11 @@ build:
   verbosity: minimal
 artifacts:
     - path: bin\release\*.exe
-    name: win-release
+    name: winrelease
 deploy:
 - provider: GitHub
   release: PSMaster-$(appveyor_build_version)
   description: AppVeyor auto deploy
-  artifact: win-release
+  artifact: winrelease
   auth_token:
     secure: UhkBQ/YkjNo8s+bunS+y9g==
