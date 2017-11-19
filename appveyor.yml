@@ -1,0 +1,24 @@
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+skip_tags: true
+environment:
+  GitHubAT:
+    secure: 6xerPw8wOWgycTTjNda3f5US8mLlvnuo0CY9MsC9vxup9O2KxEZgLdMLdZgxPMMJ
+before_build:
+- cmd: nuget restore TomLabs.PSMaster
+build:
+  verbosity: minimal
+artifacts:
+    - path: 'bin\release\*.exe'
+        name: win-release
+deploy:
+- provider: GitHub
+  release: PSMaster-$(appveyor_build_version)
+  description: AppVeyor auto deploy
+  artifact: win-release
+  auth_token:
+    secure: UhkBQ/YkjNo8s+bunS+y9g==
