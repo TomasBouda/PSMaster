@@ -13,8 +13,8 @@ before_build:
 build:
   verbosity: minimal
 artifacts:
-    - path: 'bin\release\*.exe'
-        name: win-release
+    - path: bin\release\*.exe
+    name: win-release
 deploy:
 - provider: GitHub
   release: PSMaster-$(appveyor_build_version)
