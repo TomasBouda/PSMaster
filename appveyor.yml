@@ -15,7 +15,7 @@ before_build:
 build:
   verbosity: minimal
 artifacts:
-- path: bin\Release\*.exe
+- path: TomLabs.PSMaster\TomLabs.PSMaster.App\bin\Release\PSMaster.exe
   name: winrelease
 deploy:
 - provider: GitHub
