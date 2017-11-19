@@ -3,6 +3,12 @@ Windows utility that allows you to collect and easily run powershell scripts.
 
 <img src="https://github.com/TomasBouda/PSMaster/blob/master/images/psmaster.PNG?raw=true" height="400">
 
+## Requirements
+You need to run following powershell command in order to use this library
+```ps1
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -Force
+```
+
 ## How it works
 * You write powershell script(make sense:satisfied:) and save it.
 * Then drag and drop your *.ps1 file into PSMaster - icon will be created and editor window will pop up.
