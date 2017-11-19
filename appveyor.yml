@@ -5,6 +5,8 @@ branches:
   only:
   - master
 skip_tags: true
+configuration: Release
+platform: Any CPU
 environment:
   GitHubAT:
     secure: 6xerPw8wOWgycTTjNda3f5US8mLlvnuo0CY9MsC9vxup9O2KxEZgLdMLdZgxPMMJ
@@ -13,7 +15,7 @@ before_build:
 build:
   verbosity: minimal
 artifacts:
-- path: bin\release\*.exe
+- path: bin\Release\*.exe
   name: winrelease
 deploy:
 - provider: GitHub
