@@ -1,4 +1,6 @@
 # PSMaster [![Build status](https://ci.appveyor.com/api/projects/status/v2qi22fydl1eht7a/branch/master?svg=true)](https://ci.appveyor.com/project/TomasBouda/psmaster/branch/master)
+> Add UI to your powershell scripts
+
 Windows utility that allows you to collect and easily run powershell scripts.
 
 <img src="https://github.com/TomasBouda/PSMaster/blob/master/images/psmaster.PNG?raw=true" height="400">
